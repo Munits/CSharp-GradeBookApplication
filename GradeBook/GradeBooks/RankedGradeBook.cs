@@ -17,7 +17,7 @@ namespace GradeBook.GradeBooks
             if (Students.Count < 5)
                 throw new InvalidOperationException("Ranked-grading requires a minimum of 5 students to work");
 
-            SortedList<double, string> slStudents = new SortedList<double, string>();
+            SortedList<double, string> slStudents = new SortedList<double, string>(Students.Count);
             foreach (Student student in Students)
             {
                 slStudents.Add(student.AverageGrade, student.Name);
@@ -26,13 +26,13 @@ namespace GradeBook.GradeBooks
             int step = Convert.ToInt32(Math.Floor(Students.Count / 5.0));
             int intIndexOfGrade = slStudents.IndexOfKey(averageGrade);
 
-            if (intIndexOfGrade >= step)
+            if (intIndexOfGrade >= 4 * step)
                 grade = 'A';
-            else if (intIndexOfGrade >= 2 * step)
-                grade = 'B';
             else if (intIndexOfGrade >= 3 * step)
+                grade = 'B';
+            else if (intIndexOfGrade >= 2 * step)
                 grade = 'C';
-            else if (intIndexOfGrade >= 4 * step)
+            else if (intIndexOfGrade >= step)
                 grade = 'D';
             else
                 grade = 'F';
